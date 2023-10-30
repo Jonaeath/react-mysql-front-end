@@ -14,6 +14,15 @@ const Home = () => {
     .catch((err) => console.err(err));
   }, []);
 
+  const handelDelete = (id) =>{
+    axios.delete('http://localhost:4000/delete/'+id)
+    .then((res) => {
+      location.reload();
+  })
+  .catch((err) => console.err(err));
+
+  }
+
   return (
     <div className="d-flex mx-5 bg-primary">
       <div className="rounded text-white p-3">
@@ -38,9 +47,9 @@ const Home = () => {
                         <td>{users.username}</td>
                         <td>{users.email}</td>
                         <td>
-                        <button className="btn btn-sm btn-info">Edit</button>
-                          <button className="btn btn-sm btn-primary mx-2">Edit</button>
-                          <button className="btn btn-sm btn-danger">Delete</button>
+                          <Link to={`/read/${users.id}`}><button className="btn btn-sm btn-info">Read</button></Link>
+                          <Link to={`/edit/${users.id}`}><button className="btn btn-sm btn-primary mx-2">Edit</button></Link>
+                          <button onClick={()=> handelDelete(users.id)} className="btn btn-sm btn-danger">Delete</button>
                         </td>
                     </tr>);
                 })
